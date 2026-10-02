@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Photos, videos, and stories from Matthew and Lilly's campervan trip around New Zealand.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://matthewandlillynz.com/">
+<meta property="og:title" content="Matthew &amp; Lilly in New Zealand">
+<meta property="og:description" content="Photos, videos, and stories from the road.">
+<meta property="og:image" content="https://matthewandlillynz.com/media/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2312202e'/%3E%3Cpath d='M10 46 L26 22 L35 34 L41 27 L54 46 Z' fill='%235db6bf'/%3E%3Ccircle cx='45' cy='17' r='5' fill='%23ec6b74'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="media/touch-icon.jpg">
+<meta name="theme-color" content="#f2f5f6">
+<title>Matthew &amp; Lilly in New Zealand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: full-bleed cover photo, then a route strip of every stop so far, then chapters newest-first.
+   Photo chapters = meta line, big title, wide cover photo, story column, justified photo rows.
+   Text-only updates = postcards with a postmark. */
+:root {
+  --bg: #f2f5f6;        /* sea mist */
+  --paper: #ffffff;
+  --ink: #12202e;       /* deep-water navy */
+  --muted: #586775;
+  --line: #d6dee3;
+  --accent: #b23440;    /* pōhutukawa red */
+  --sea: #1d6d76;       /* Coromandel shallows */
+  --on-photo: #ffffff;
+  --scrim: rgba(8, 16, 24, 0.94);
+  --font-display: "Gloock", Georgia, "Times New Roman", serif;
+  --font-body: "Literata", Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d151d; --paper: #15202b; --ink: #e7edf1; --muted: #9aa9b6; --line: #24323f;
+    --accent: #ec6b74; --sea: #5db6bf; --scrim: rgba(3, 7, 11, 0.96);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d151d; --paper: #15202b; --ink: #e7edf1; --muted: #9aa9b6; --line: #24323f;
+  --accent: #ec6b74; --sea: #5db6bf; --scrim: rgba(3, 7, 11, 0.96);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 1.125rem; line-height: 1.65;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+img, video { max-width: 100%; display: block; }
+.wrap { max-width: 68rem; margin-inline: auto; padding-inline: var(--gutter); }
+.mono { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* ---------- Cover ---------- */
+.cover { display: block; }
+.cover-photo { position: relative; height: clamp(22rem, 66svh, 46rem); overflow: hidden; background: var(--line); }
+.cover-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 58%; }
+@media (max-width: 600px) { .cover-photo img { object-position: 62% 60%; } }
+.cover-text {
+  width: 100%; max-width: 68rem; margin-inline: auto;
+  padding-inline: var(--gutter); padding-block: clamp(1.75rem, 4vw, 2.75rem) 0;
+  display: grid; gap: 0.8rem;
+}
+.cover .mono { color: var(--sea); }
+.cover h1 {
+  margin: 0; font-family: var(--font-display); font-weight: 400; line-height: 0.98;
+  font-size: clamp(2.9rem, 9vw, 6rem); letter-spacing: -0.015em; text-wrap: balance;
+}
+.cover h1 .amp { font-style: italic; color: var(--accent); }
+.cover p.sub { margin: 0; max-width: 34rem; font-size: clamp(1.05rem, 2.2vw, 1.2rem); color: var(--muted); }
+
+/* ---------- Route ---------- */
+.route { padding-block: 2rem 0.5rem; display: grid; gap: 1.25rem; }
+.route-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.5rem 2rem; }
+.route-head .mono { color: var(--muted); }
+.clock { font-family: var(--font-mono); font-size: 0.85rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.clock b { color: var(--ink); font-weight: 500; }
+.stops-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); }
+.stops-scroll::-webkit-scrollbar { display: none; }
+ol.stops { list-style: none; margin: 0; padding: 0 0 0.5rem; display: flex; min-width: max-content; }
+ol.stops li { position: relative; padding: 1.4rem 1.75rem 0 0; min-width: 8.5rem; }
+ol.stops li::before { /* the road */
+  content: ""; position: absolute; top: 0.45rem; left: 0.45rem; right: 0; border-top: 2px solid var(--sea);
+}
+ol.stops li:last-child::before { display: none; }
+ol.stops li.next::before { display: none; }
+ol.stops li.before-next::before { border-top-style: dashed; border-top-color: var(--muted); }
+ol.stops li::after { /* the pin */
+  content: ""; position: absolute; top: 0; left: 0; width: 0.95rem; height: 0.95rem; border-radius: 50%;
+  background: var(--sea); box-shadow: 0 0 0 3px var(--bg);
+}
+ol.stops li.next::after { background: var(--bg); border: 2px dashed var(--muted); box-shadow: none; }
+.stop-name { display: block; font-family: var(--font-display); font-size: 1.15rem; line-height: 1.2; white-space: nowrap; }
+.stop-when { display: block; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: 0.2rem; }
+ol.stops li.next .stop-name { color: var(--muted); font-style: italic; }
+
+/* ---------- Chapters ---------- */
+main { display: grid; gap: clamp(4rem, 9vw, 7rem); padding-block: clamp(2.5rem, 6vw, 4.5rem) 2rem; }
+.chapter { display: grid; gap: 1.5rem; scroll-margin-top: 1rem; }
+.meta { display: flex; flex-wrap: wrap; gap: 0.35rem 1rem; color: var(--muted); }
+.meta .place { color: var(--accent); }
+.chapter h2 {
+  margin: 0; font-family: var(--font-display); font-weight: 400; line-height: 1.04;
+  font-size: clamp(2.2rem, 6.5vw, 4rem); letter-spacing: -0.01em; text-wrap: balance; max-width: 18ch;
+}
+.head { display: grid; gap: 0.75rem; }
+.lead-photo { margin: 0; }
+.lead-photo button { width: 100%; aspect-ratio: 16 / 9; }
+.story { max-width: 36rem; display: grid; gap: 1.1rem; }
+.story p { margin: 0; }
+.story p:first-child { font-size: 1.22rem; line-height: 1.6; }
+.body-grid { display: grid; gap: 2rem; }
+@media (min-width: 900px) {
+  .body-grid.has-side { grid-template-columns: minmax(0, 36rem) minmax(0, 1fr); align-items: start; gap: 3rem; }
+  .side-note { position: sticky; top: 1.5rem; }
+}
+.side-note { display: grid; gap: 0.35rem; padding-top: 0.35rem; border-top: 1px solid var(--line); color: var(--muted); }
+.side-note .mono { color: var(--muted); }
+.side-note .coords { font-family: var(--font-mono); font-size: 0.9rem; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+/* tiles */
+.tile {
+  position: relative; display: block; padding: 0; border: 0; margin: 0; cursor: zoom-in;
+  background: var(--line); border-radius: 4px; overflow: hidden; width: 100%; height: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+.tile img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(.2,.7,.2,1), opacity 0.4s; }
+@media (hover: hover) { .tile:hover img { transform: scale(1.025); } }
+.tile:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.badge {
+  position: absolute; left: 0.6rem; bottom: 0.6rem; display: inline-flex; align-items: center; gap: 0.4rem;
+  background: rgba(8,16,24,0.72); color: #fff; font-family: var(--font-mono); font-size: 0.75rem;
+  padding: 0.35rem 0.7rem 0.35rem 0.5rem; border-radius: 999px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+.badge svg { width: 0.85rem; height: 0.85rem; fill: currentColor; }
+
+/* justified rows (sizes set by script) */
+.rows { display: grid; gap: 6px; }
+.row { display: flex; gap: 6px; }
+.row > .cell { flex: none; }
+.count { margin: 0; color: var(--muted); }
+
+/* ---------- Postcard (text-only updates) ---------- */
+.postcard {
+  position: relative; background: var(--paper); border: 1px solid var(--line); border-radius: 6px;
+  padding: clamp(1.5rem, 4vw, 2.75rem); padding-right: clamp(1.5rem, 4vw, 2.75rem);
+  display: grid; gap: 1rem; max-width: 46rem;
+  box-shadow: 0 1px 0 var(--line), 0 18px 40px -28px rgba(18, 32, 46, 0.35);
+}
+.postcard .head { padding-right: 6.5rem; }
+.postcard h2 { font-size: clamp(1.8rem, 5vw, 2.6rem); }
+.postmark {
+  position: absolute; top: 1.25rem; right: 1.25rem; width: 5.6rem; height: 5.6rem; border-radius: 50%;
+  border: 2px solid var(--sea); color: var(--sea); display: grid; place-items: center; text-align: center;
+  font-family: var(--font-mono); line-height: 1.15; transform: rotate(-9deg); opacity: 0.85;
+}
+.postmark::before { content: ""; position: absolute; inset: 5px; border-radius: 50%; border: 1px solid var(--sea); }
+.postmark .pm-day { display: block; font-size: 1.35rem; font-weight: 500; }
+.postmark .pm-mon { display: block; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; }
+.postcard .story p:first-child { font-size: inherit; }
+.signoff { margin: 0; font-style: italic; color: var(--muted); }
+
+/* ---------- Footer ---------- */
+footer { padding-block: 2.5rem 3.5rem; }
+footer .wrap { display: grid; gap: 0.5rem; border-top: 1px solid var(--line); padding-top: 1.75rem; color: var(--muted); }
+footer .big { font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2.2rem); color: var(--ink); margin: 0; }
+footer p { margin: 0; }
+
+/* ---------- Viewer ---------- */
+.lb { position: fixed; inset: 0; z-index: 100; background: var(--scrim); color: #eef3f6; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; }
+.lb-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: calc(env(safe-area-inset-top, 0px) + 0.75rem) 1rem 0.5rem; }
+.lb-top .mono { color: rgba(238,243,246,0.75); }
+.lb-stage { position: relative; display: grid; place-items: center; min-height: 0; padding: 0.25rem 0.5rem; touch-action: pan-y; }
+.lb-stage img, .lb-stage video { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 3px; }
+.lb-cap { padding: 0.75rem var(--gutter) calc(env(safe-area-inset-bottom, 0px) + 1.25rem); text-align: center; font-size: 1.05rem; min-height: 3.75rem; max-width: 44rem; margin-inline: auto; }
+.lb-btn {
+  border: 0; cursor: pointer; font: inherit; color: #fff; background: rgba(255,255,255,0.12);
+  border-radius: 999px; padding: 0.6rem 1.1rem; min-height: 44px; display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.lb-btn:hover { background: rgba(255,255,255,0.22); }
+.lb-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.lb-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 3.25rem; height: 3.25rem; padding: 0; justify-content: center; font-size: 1.6rem; font-family: var(--font-body); text-transform: none; }
+.lb-prev { left: 1rem; } .lb-next { right: 1rem; }
+@media (hover: none), (max-width: 700px) { .lb-nav { display: none; } }
+
+@media (max-width: 600px) {
+  body { font-size: 1.0625rem; }
+  .story p:first-child { font-size: 1.12rem; }
+  .lead-photo button { aspect-ratio: 4 / 3; }
+  .postcard .head { padding-right: 4.75rem; }
+  .postmark { width: 4.6rem; height: 4.6rem; top: 1rem; right: 1rem; }
+  .postmark .pm-day { font-size: 1.1rem; }
+}
+@media (prefers-reduced-motion: reduce) { .tile img { transition: none; } .tile:hover img { transform: none; } }
+</style>
+</head>
+<body>
+<header class="cover" id="top">
+  <div class="cover-photo"><img id="cover-img" src="" alt="" fetchpriority="high"></div>
+  <div class="cover-text">
+    <p class="mono">Letters home from Aotearoa New Zealand</p>
+    <h1>Matthew <span class="amp">&amp;</span> Lilly in New&nbsp;Zealand</h1>
+    <p class="sub">Photos, videos, and stories from the road for Mom and Dad. The newest posts are at the top, and you can tap any picture to see it full size.</p>
+  </div>
+</header>
+
+<section class="wrap route" aria-label="Where we've been">
+  <div class="route-head">
+    <span class="mono">The route so far</span>
+    <span class="clock" id="clock"></span>
+  </div>
+  <div class="stops-scroll"><ol class="stops" id="stops"></ol></div>
+</section>
+
+<main class="wrap" id="entries"></main>
+
+<footer>
+  <div class="wrap">
+    <p class="big">More soon. Love from the road.</p>
+    <p id="updated"></p>
+  </div>
+</footer>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <div class="lb-top">
+    <span class="mono" id="lb-count"></span>
+    <button class="lb-btn" id="lb-close" type="button">Close ✕</button>
+  </div>
+  <div class="lb-stage" id="lb-stage">
+    <button class="lb-btn lb-nav lb-prev" id="lb-prev" type="button" aria-label="Previous">‹</button>
+    <button class="lb-btn lb-nav lb-next" id="lb-next" type="button" aria-label="Next">›</button>
+  </div>
+  <div class="lb-cap" id="lb-cap"></div>
+</div>
+
+<!-- JOURNAL DATA: entries with date, time (sort), when, place, region, stops, coords, title, story[], media[{type,src,poster,caption,duration,w,h}] -->
+<script type="application/json" id="journal">
+{
+ "updated": "2026-10-02",
+ "entries": [
+  {
+   "date": "2026-09-30",
+   "time": "12:00",
+   "place": "Coroglen",
+   "region": "Coromandel Peninsula",
+   "stops": [
+    "Coroglen"
+   ],
+   "title": "Picking up the campervan",
+   "story": [
+    "We picked up our campervan on September 30 and drove out to the Coromandel Peninsula to camp. We found a nice campsite right along a river in Coroglen.",
+    "As soon as we had everything set up, we discovered that the camper’s battery wasn’t working, so the fridge, sink, and interior lights were all out. Luckily, there was a tavern just up the road that sold us bags of ice, so we were able to keep our food cold."
+   ],
+   "media": []
+  },
+  {
+   "date": "2026-10-01",
+   "time": "07:00",
+   "when": "Morning",
+   "place": "Hot Water Beach & Cathedral Cove",
+   "region": "Coromandel",
+   "stops": [
+    "Hot Water Beach",
+    "Cathedral Cove"
+   ],
+   "title": "Sunrise at Hot Water Beach",
+   "story": [
+    "For our first full day in the campervan, we woke up at 4 a.m. and drove to Hot Water Beach to catch the sunrise. It’s called Hot Water Beach because there’s a natural hot spring beneath the sand. At low tide, you can dig a hole that fills with warm water, basically making your own hot tub!",
+    "Meanwhile, I stayed in the campervan learning how to make coffee with a French press so I could keep up my morning routine. Lilly walked over to the beach and dug a small hole to dip her toes in. She met some locals who had all brought their own shovels to dig pools to sit in while they enjoyed the sunrise.",
+    "Afterward, we drove down the road to Cathedral Cove to relax on the beach and cook lunch. Cathedral Cove is a bit famous because it’s one of the Windows 10 desktop backgrounds. If you Google it, I’m sure you’ll recognize the image. We couldn’t get into the cove itself because the tide was too high, but the beach was stunning."
+   ],
+   "media": [
+    {
+     "type": "image",
+     "src": "media/2026-10-01-hotwater-dawn.jpg",
+     "caption": "Dawn at Hot Water Beach, with the moon still up.",
+     "w": 1800,
+     "h": 1350
+    },
+    {
+     "type": "video",
+     "src": "media/2026-10-01-hotwater-morning-v2.mp4",
+     "poster": "media/2026-10-01-hotwater-morning-v2.jpg",
+     "caption": "A look around Hot Water Beach just after sunrise.",
+     "duration": "0:18",
+     "w": 720,
+     "h": 1280
+    },
+    {
+     "type": "image",
+     "src": "media/2026-10-01-oystercatcher.jpg",
+     "caption": "A variable oystercatcher out on the sand in the early light.",
+     "w": 1350,
+     "h": 1800
+    },
+    {
+     "type": "image",
+     "src": "media/2026-10-01-cove-beach.jpg",
+     "caption": "White sand and clear water near Cathedral Cove.",
+     "w": 1013,
+     "h": 1800
+    },
+    {
+     "type": "image",
+     "src": "media/2026-10-01-hoop.jpg",
+     "caption": "Lilly with her hula hoop on the beach near Cathedral Cove.",
+     "w": 1800,
+     "h": 1013
+    },
+    {
+     "type": "image",
+     "src": "media/2026-10-01-bench.jpg",
+     "caption": "Lilly on a bench above the beach, looking out at the islands.",
+     "w": 1800,
+     "h": 1350
+    },
+    {
+     "type": "image",
+     "src": "media/2026-10-01-dotterel.jpg",
+     "caption": "A New Zealand dotterel hunkered down in the sand.",
+     "w": 1350,
+     "h": 1800
+    }
+   ],
+   "coords": [
+    -36.889,
+    175.824
+   ]
+  },
+  {
+   "date": "2026-10-01",
+   "time": "18:00",
+   "when": "Evening",
+   "place": "Waikawau",
+   "region": "Firth of Thames",
+   "stops": [
+    "Waikawau"
+   ],
+   "title": "Sunset over the Firth of Thames",
+   "story": [
+    "That afternoon, we drove over to Waikawau on the west side of the peninsula to set up camp for the night. We listened to music, cooked dinner, and relaxed as the sun set over the Firth of Thames. Seeing a sunrise and a sunset over two different bodies of water on the same day was surreal.",
+    "We saw lots of different birds, including a massive turkey that bopped around the campsite for hours. It was still there when we left the next morning, so I guess it just lives there."
+   ],
+   "media": [
+    {
+     "type": "image",
+     "src": "media/2026-10-01-van-sunset.jpg",
+     "caption": "Sunset at our campsite in Waikawau.",
+     "w": 1800,
+     "h": 1350
+    },
+    {
+     "type": "image",
+     "src": "media/2026-10-01-firth-clouds.jpg",
+     "caption": "Clouds rolling over the hills across the water.",
+     "w": 1800,
+     "h": 1350
+    },
+    {
+     "type": "video",
+     "src": "media/2026-10-01-waikawau-camp-v2.mp4",
+     "poster": "media/2026-10-01-waikawau-camp-v2.jpg",
+     "caption": "A wander around the campsite: a heron on the rocks, a kayaker on the water, and the resident turkey.",
+     "duration": "0:58",
+     "w": 720,
+     "h": 1280
+    },
+    {
+     "type": "video",
+     "src": "media/2026-10-01-firth-evening-v2.mp4",
+     "poster": "media/2026-10-01-firth-evening-v2.jpg",
+     "caption": "Evening light over the Firth of Thames.",
+     "duration": "0:12",
+     "w": 720,
+     "h": 1280
+    },
+    {
+     "type": "video",
+     "src": "media/2026-10-01-magpie-v2.mp4",
+     "poster": "media/2026-10-01-magpie-v2.jpg",
+     "caption": "A magpie strutting across the campsite lawn.",
+     "duration": "0:11",
+     "w": 1280,
+     "h": 720
+    }
+   ],
+   "coords": [
+    -36.946,
+    175.475
+   ]
+  },
+  {
+   "date": "2026-10-02",
+   "time": "12:00",
+   "title": "Owharoa Falls and a hot pool near Tauranga",
+   "story": [
+    "We called the rental company about the battery, and they arranged a replacement nearby. We also swung by a local bank branch and got our checking account set up, so we’re officially ready to start working here in NZ (not that we’re in any rush to do so).",
+    "Once the van was fixed, we hit the road and drove to Owharoa Falls, where we had lunch. Afterward, we kept driving, and Lilly found an amazing powered campsite near Tauranga called Fernland Spa and Campground. It has a natural mineral hot pool, excellent showers and kitchen facilities, and is just gorgeous overall. Great job by Lilly for snagging us a spot!",
+    "The best part is that it was only $35 USD for the night. It felt like it could have cost ten times that and still been a fair price.",
+    "Next stop: Rotorua, for some hiking in the Redwoods!"
+   ],
+   "media": [
+    {
+     "type": "image",
+     "src": "media/2026-10-02-owharoa-falls.jpg",
+     "caption": "Owharoa Falls, where we stopped for lunch.",
+     "w": 1350,
+     "h": 1800,
+     "pos": "50% 40%"
+    },
+    {
+     "type": "image",
+     "src": "media/2026-10-02-owharoa-selfie.jpg",
+     "caption": "The two of us at Owharoa Falls.",
+     "w": 1800,
+     "h": 1350
+    },
+    {
+     "type": "image",
+     "src": "media/2026-10-02-chaffinch.jpg",
+     "caption": "A chaffinch hopping along the rocks by the water.",
+     "w": 1800,
+     "h": 1350
+    },
+    {
+     "type": "image",
+     "src": "media/2026-10-02-fernland-deck.jpg",
+     "caption": "The deck and hot mineral pool at Fernland Spa.",
+     "w": 1800,
+     "h": 1350
+    },
+    {
+     "type": "image",
+     "src": "media/2026-10-02-fernland-spa.jpg",
+     "caption": "Fernland Spa, tucked into the bush.",
+     "w": 1800,
+     "h": 1350
+    },
+    {
+     "type": "image",
+     "src": "media/2026-10-02-fernland-drive.jpg",
+     "caption": "Evening light on the campground drive.",
+     "w": 1350,
+     "h": 1800
+    }
+   ],
+   "place": "Owharoa Falls & Tauranga",
+   "stops": [
+    "Owharoa Falls",
+    "Tauranga"
+   ]
+  }
+ ],
+ "next": "Rotorua",
+ "cover": {
+  "src": "media/cover-waterfall.jpg",
+  "alt": "Matthew and Lilly smiling in front of a waterfall surrounded by native bush and tree ferns"
+ }
+}
+</script>
+
+<script>
+(function () {
+  const data = JSON.parse(document.getElementById('journal').textContent);
+  const byNewest = (a, b) => (b.date + (b.time || '')).localeCompare(a.date + (a.time || ''));
+  const entries = (data.entries || []).slice().sort(byNewest);
+  const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
+  const parseDate = (s) => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); };
+  const fmt = (d, o) => d.toLocaleDateString('en-US', o);
+  const playIcon = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg>';
+
+  // Cover
+  if (data.cover) { const c = document.getElementById('cover-img'); c.src = data.cover.src; c.alt = data.cover.alt || ''; }
+
+  // Clock
+  const nzFmt = new Intl.DateTimeFormat('en-US', { timeZone: 'Pacific/Auckland', weekday: 'short', hour: 'numeric', minute: '2-digit' });
+  const hereFmt = new Intl.DateTimeFormat('en-US', { weekday: 'short', hour: 'numeric', minute: '2-digit' });
+  let tz = ''; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+  const clock = document.getElementById('clock');
+  function tick() {
+    const now = new Date();
+    clock.innerHTML = '';
+    clock.append('In NZ it’s ', Object.assign(el('b'), { textContent: nzFmt.format(now) }));
+    if (tz !== 'Pacific/Auckland') clock.append(' · for you it’s ', Object.assign(el('b'), { textContent: hereFmt.format(now) }));
+  }
+  tick(); setInterval(tick, 20000);
+
+  // Route
+  const chrono = entries.slice().reverse();
+  const stops = [];
+  chrono.forEach(e => (e.stops || []).forEach(p => { if (!stops.find(s => s.name === p)) stops.push({ name: p, date: e.date }); }));
+  const ol = document.getElementById('stops');
+  stops.forEach((s, i) => {
+    const li = el('li'); li.append(el('span', 'stop-name', s.name), el('span', 'stop-when', fmt(parseDate(s.date), { month: 'short', day: 'numeric' })));
+    if (data.next && i === stops.length - 1) li.classList.add('before-next');
+    ol.appendChild(li);
+  });
+  if (data.next) { const li = el('li', 'next'); li.append(el('span', 'stop-name', data.next), el('span', 'stop-when', 'Up next')); ol.appendChild(li); }
+
+  // Updated
+  if (data.updated) document.getElementById('updated').textContent = 'Last updated ' + fmt(parseDate(data.updated), { weekday: 'long', month: 'long', day: 'numeric' }) + ' (New Zealand date). Bookmark this page and check back.';
+
+  const main = document.getElementById('entries');
+  const coordStr = (c) => Math.abs(c[0]).toFixed(2) + '°' + (c[0] < 0 ? 'S' : 'N') + '  ' + Math.abs(c[1]).toFixed(2) + '°' + (c[1] < 0 ? 'W' : 'E');
+  const galleries = [];
+
+  function makeTile(m, list, idx) {
+    const t = el('button', 'tile'); t.type = 'button';
+    t.setAttribute('aria-label', (m.type === 'video' ? 'Play video' : 'View photo') + (m.caption ? ': ' + m.caption : ''));
+    const im = el('img'); im.src = m.type === 'video' ? (m.poster || '') : m.src; im.alt = m.type === 'video' ? '' : (m.caption || '');
+    im.loading = 'lazy'; im.decoding = 'async'; if (m.pos) im.style.objectPosition = m.pos; t.appendChild(im);
+    if (m.type === 'video') { const b = el('span', 'badge'); b.innerHTML = playIcon; b.append(m.duration || 'Video'); t.appendChild(b); }
+    t.addEventListener('click', () => openLb(list, idx));
+    return t;
+  }
+
+  entries.forEach((e) => {
+    const d = parseDate(e.date);
+    const media = e.media || [];
+    const meta = el('div', 'meta mono');
+    meta.append(el('span', null, fmt(d, { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })));
+    if (e.when) meta.append(el('span', null, e.when));
+    const where = [e.place, e.region].filter(Boolean).join(', ');
+    if (where) meta.append(el('span', 'place', where));
+    const head = el('div', 'head'); head.append(meta, el('h2', null, e.title || ''));
+    const story = el('div', 'story'); (e.story || []).forEach(p => story.appendChild(el('p', null, p)));
+
+    if (!media.length) {
+      const card = el('article', 'postcard');
+      const pm = el('div', 'postmark'); pm.setAttribute('aria-hidden', 'true');
+      const inner = el('div'); inner.append(el('span', 'pm-day', String(d.getDate())), el('span', 'pm-mon', fmt(d, { month: 'short' }) + ' ' + d.getFullYear()));
+      pm.appendChild(inner);
+      card.append(pm, head, story);
+      main.appendChild(card);
+      return;
+    }
+
+    const art = el('article', 'chapter');
+    art.appendChild(head);
+    const lead = el('figure', 'lead-photo'); lead.appendChild(makeTile(media[0], media, 0)); art.appendChild(lead);
+
+    const body = el('div', 'body-grid');
+    body.appendChild(story);
+    if (e.coords || media.length) {
+      const side = el('aside', 'side-note');
+      if (e.coords) { side.append(el('span', 'mono', 'Where we were'), el('span', 'coords', coordStr(e.coords))); }
+      const nP = media.filter(m => m.type !== 'video').length, nV = media.length - nP, bits = [];
+      if (nP) bits.push(nP + (nP === 1 ? ' photo' : ' photos'));
+      if (nV) bits.push(nV + (nV === 1 ? ' video' : ' videos'));
+      side.append(el('span', 'mono', bits.join(' · ')));
+      body.classList.add('has-side'); body.appendChild(side);
+    }
+    art.appendChild(body);
+
+    if (media.length > 1) {
+      const rows = el('div', 'rows');
+      art.appendChild(rows);
+      galleries.push({ rows, items: media.slice(1).map((m, i) => ({ m, tile: makeTile(m, media, i + 1) })) });
+    }
+    main.appendChild(art);
+  });
+
+  // Justified rows: each row fills the width; a short last row is folded into the one before it.
+  function layout(g) {
+    const W = g.rows.clientWidth; if (!W) return;
+    const gap = 6, target = W < 600 ? 170 : 260;
+    const ars = g.items.map(x => (x.m.w && x.m.h) ? x.m.w / x.m.h : 1.333);
+    const rows = []; let cur = [];
+    ars.forEach((ar, i) => {
+      cur.push(i);
+      const sum = cur.reduce((a, j) => a + ars[j], 0);
+      if (sum * target + gap * (cur.length - 1) >= W) { rows.push(cur); cur = []; }
+    });
+    if (cur.length) {
+      const sum = cur.reduce((a, j) => a + ars[j], 0);
+      if (rows.length && sum * target + gap * (cur.length - 1) < W * 0.6) rows[rows.length - 1] = rows[rows.length - 1].concat(cur);
+      else rows.push(cur);
+    }
+    g.rows.innerHTML = '';
+    rows.forEach((r, ri) => {
+      const sum = r.reduce((a, j) => a + ars[j], 0);
+      let h = (W - gap * (r.length - 1)) / sum;
+      if (ri === rows.length - 1 && r.length === 1) h = Math.min(h, target * 1.6);
+      const row = el('div', 'row');
+      let used = 0;
+      r.forEach((j, k) => {
+        const cell = el('div', 'cell');
+        let w = Math.floor(ars[j] * h);
+        if (k === r.length - 1 && !(ri === rows.length - 1 && r.length === 1)) w = Math.max(0, Math.floor(W - used - gap * (r.length - 1)));
+        used += w;
+        cell.style.width = w + 'px'; cell.style.height = Math.round(h) + 'px';
+        cell.appendChild(g.items[j].tile);
+        row.appendChild(cell);
+      });
+      g.rows.appendChild(row);
+    });
+  }
+  const relayout = () => galleries.forEach(layout);
+  relayout();
+  let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(relayout, 80); });
+  if ('ResizeObserver' in window) { let lastW = 0; new ResizeObserver(() => { const w = main.clientWidth; if (w !== lastW) { lastW = w; relayout(); } }).observe(main); }
+
+  // Viewer
+  const lb = document.getElementById('lb'), stage = document.getElementById('lb-stage');
+  const cap = document.getElementById('lb-cap'), cnt = document.getElementById('lb-count');
+  let list = [], idx = 0, lastFocus = null, scrollY = 0;
+  function clearStage() { stage.querySelectorAll('img, video').forEach(n => { if (n.pause) n.pause(); n.remove(); }); }
+  function render() {
+    clearStage();
+    const m = list[idx]; let node;
+    if (m.type === 'video') {
+      node = el('video'); node.controls = true; node.playsInline = true; node.setAttribute('playsinline', ''); node.preload = 'metadata';
+      if (m.poster) node.poster = m.poster; node.src = m.src;
+    } else { node = el('img'); node.src = m.src; node.alt = m.caption || ''; }
+    stage.insertBefore(node, stage.firstChild);
+    cap.textContent = m.caption || '';
+    cnt.textContent = (idx + 1) + ' / ' + list.length;
+    const multi = list.length > 1;
+    document.getElementById('lb-prev').hidden = !multi; document.getElementById('lb-next').hidden = !multi;
+    [idx + 1, idx - 1].forEach(j => { const n = list[(j + list.length) % list.length]; if (n && n.type !== 'video') { const p = new Image(); p.src = n.src; } });
+  }
+  function openLb(items, i) {
+    list = items; idx = i; lastFocus = document.activeElement; scrollY = window.scrollY;
+    lb.hidden = false; document.documentElement.style.overflow = 'hidden'; document.body.style.overflow = 'hidden';
+    render(); document.getElementById('lb-close').focus({ preventScroll: true });
+  }
+  function closeLb() {
+    clearStage(); lb.hidden = true; document.documentElement.style.overflow = ''; document.body.style.overflow = '';
+    if (lastFocus) lastFocus.focus({ preventScroll: true }); window.scrollTo(0, scrollY);
+  }
+  function step(dir) { if (list.length < 2) return; idx = (idx + dir + list.length) % list.length; render(); }
+  document.getElementById('lb-close').addEventListener('click', closeLb);
+  document.getElementById('lb-prev').addEventListener('click', () => step(-1));
+  document.getElementById('lb-next').addEventListener('click', () => step(1));
+  stage.addEventListener('click', (ev) => { if (ev.target === stage) closeLb(); });
+  document.addEventListener('keydown', (ev) => {
+    if (lb.hidden) return;
+    if (ev.key === 'Escape') closeLb(); else if (ev.key === 'ArrowLeft') step(-1); else if (ev.key === 'ArrowRight') step(1);
+  });
+  let sx = null, sy = null;
+  stage.addEventListener('touchstart', (ev) => { if (ev.target.tagName === 'VIDEO') { sx = null; return; } const t = ev.touches[0]; sx = t.clientX; sy = t.clientY; }, { passive: true });
+  stage.addEventListener('touchend', (ev) => {
+    if (sx == null) return;
+    const t = ev.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) step(dx < 0 ? 1 : -1);
+    else if (dy > 90 && Math.abs(dy) > Math.abs(dx) * 1.5) closeLb();
+    sx = sy = null;
+  });
+})();
+</script>
+</body>
+</html>
