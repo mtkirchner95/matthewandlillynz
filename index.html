@@ -822,7 +822,7 @@ footer p { margin: 0; }
    "title": "Glowworms at Nikau Cave",
    "story": [
     "So here’s the thing about this cave. Lilly and I wanted to see glowworms while we were on the North Island. There are a handful of very touristy options around Auckland and Rotorua, but they’re all busy and expensive. On the drive to the Blue Spring, Lilly went into her signature planning mode and booked us a caving trip through Nikau Cave. She did not consult me first; I was just happily driving along, listening to our audiobook. I believe she didn’t ask because I probably would have said no if I’d known exactly what the experience involved.",
-    "It starts with shimmying through a crack in the side of the cave that’s barely bigger than the average body. Then you army crawl through an ice-cold underground stream for 20 to 30 meters. Smaller adventurers can manage it on hands and knees, while larger folks basically submerge the entire front of their body as they squirm through a dark, wet tunnel. Lilly was very excited. I was obviously hesitant.",
+    "It starts with shimmying through a crack in the side of the cave that’s barely bigger than the average body. Then you army crawl through an ice-cold underground stream for 20 to 30 meters. (Edit from Lilly: Oh, it wasn’t *that* cold, it was *refreshing*.) Smaller adventurers can manage it on hands and knees, while larger folks basically submerge the entire front of their body as they squirm through a dark, wet tunnel. Lilly was very excited. I was obviously hesitant.",
     "Nonetheless, she convinced me, and it ended up being the highlight of our trip. Past the narrow entrance, the cave opens up, and we set off on a 1 km scramble through it. Because of the water and the fragile cave formations, we could only bring a flashlight and a helmet: no phones, nothing in our pockets. Our guide was an older gentleman named Philip, and three other travelers joined us. (Philip later told us he was the man with his grandson the night before. They were hunting possums. They didn’t find any.)",
     "At various points, we all turned off our lights and gazed at the blue glowworms lighting up the cave. We couldn’t take pictures, but it was truly spectacular. At one point, Philip had us turn off our lights, join hands, and walk through the cave as a group with only the glowworms to guide us.",
     "Needless to say, this was not your average tourist experience. I bonked my head, knees, and elbows several times, and the rocks were cold and slippery. We had to sign a waiver and answer questions about our fitness level and injury history. We’d called ahead to ask about kneepads for me, but as we set off, Philip said, “Oh, you’ll be fine. People with knee replacements do this.” I wish I’d had the kneepads.",
@@ -978,7 +978,7 @@ footer p { margin: 0; }
     const where = [e.place, e.region].filter(Boolean).join(', ');
     if (where) meta.append(el('span', 'place', where));
     const head = el('div', 'head'); head.append(meta, el('h2', null, e.title || ''));
-    const story = el('div', 'story'); (e.story || []).forEach(p => story.appendChild(el('p', null, p)));
+    const story = el('div', 'story'); (e.story || []).forEach(p => { const para = el('p'); String(p).split('*').forEach((part, i) => { if (!part) return; para.appendChild(i % 2 ? el('em', null, part) : document.createTextNode(part)); }); story.appendChild(para); });
 
     if (!media.length) {
       const card = el('article', 'postcard');
